@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095742253613",
+    "project_id": "mobile-jordi-marius",
+    "storage_bucket": "mobile-jordi-marius.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095742253613:android:781a7beea73268db6c66a4",
+        "android_client_info": {
+          "package_name": "com.example.android_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH1qLlNj8nQ4Jnf8RW2Ar3awLgoanUG-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
