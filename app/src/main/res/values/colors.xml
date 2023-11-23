@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="teal_200">#FFBB86FC</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="lavender">#8692F7</color>
+
+    <!-- Theme colors -->
+    <color name="RichBlack">#0D1321</color>
+    <color name="PrussianBlue">#1D2D44</color>
+    <color name="PayneGray">#3E5C76</color>
+    <color name="SilverLakeBlue">#748CAB</color>
+    <color name="Eggshell">#F0EBD8</color>
+
 </resources>
