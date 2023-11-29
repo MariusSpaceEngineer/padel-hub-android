@@ -1,0 +1,10 @@
+<resources>
+    <string name="genderSpinner">genderSpinner</string>
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+</resources>
