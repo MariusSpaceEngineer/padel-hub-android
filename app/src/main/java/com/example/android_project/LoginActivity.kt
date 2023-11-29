@@ -1,5 +1,6 @@
 package com.example.android_project
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -12,22 +13,24 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var buttonLogin: Button
+    private lateinit var buttonRegister: Button
+
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("YourActivity", "Activity created")
+        Log.d("LoginPage", "Activity created")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         auth = FirebaseAuth.getInstance()
 
-        editTextEmail = findViewById(R.id.username)
+        editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
         buttonLogin = findViewById(R.id.loginButton)
+        buttonRegister = findViewById(R.id.registerButton)
 
         buttonLogin.setOnClickListener {
-            print("Login button clicked")
-            Log.d("YourActivity", "Login button clicked")
+            Log.d("LoginPage", "Login button clicked")
             val email = editTextEmail.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
 
@@ -35,23 +38,35 @@ class LoginActivity : AppCompatActivity() {
                 loginUser(email, password)
             }
         }
+
+        buttonRegister.setOnClickListener {
+            Log.d("LoginPage", "Register button clicked")
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loginUser(email: String, password: String) {
-        Log.d("YourActivity", "Login activated")
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Access granted")
-                    builder.setMessage("Login successful")
-                    builder.show()
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("No access")
-                    builder.setMessage("Login unsuccessful")
-                    builder.show()
+        Log.d("LoginPage", "Login activated")
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("LoginPage", "Login successful")
+
+                        //TODO: Remove this and navigate to the next page
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("Access granted")
+                        builder.setMessage("Login successful")
+                        builder.show()
+                    } else {
+                        Log.d("LoginPage", "Login unsuccessful")
+
+                        //TODO: Remove this and navigate to the next page
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("No access")
+                        builder.setMessage("Login unsuccessful")
+                        builder.show()
+                    }
                 }
-            }
+        }
     }
-}
