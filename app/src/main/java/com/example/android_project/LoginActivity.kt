@@ -52,16 +52,10 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Log.d("LoginPage", "Login successful")
-
-                        //TODO: Remove this and navigate to the next page
-                        val builder = AlertDialog.Builder(this)
-                        builder.setTitle("Access granted")
-                        builder.setMessage("Login successful")
-                        builder.show()
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
                     } else {
                         Log.d("LoginPage", "Login unsuccessful")
-
-                        //TODO: Remove this and navigate to the next page
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("No access")
                         builder.setMessage("Login unsuccessful")

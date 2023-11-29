@@ -1,5 +1,6 @@
 package com.example.android_project
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -68,17 +69,11 @@ class RegisterActivity : AppCompatActivity() {
                     userDocument.set(userData)
                         .addOnSuccessListener {
                             Log.d("RegistrationActivity", "User data added to Firestore.")
-
-                            //TODO: Remove this and navigate to the next page
-                            val builder = AlertDialog.Builder(this)
-                            builder.setTitle("Registration successful")
-                            builder.setMessage("User UID: $uid")
-                            builder.show()
+                            val intent = Intent(this, HomeActivity::class.java)
+                            startActivity(intent)
                         }
                         .addOnFailureListener { e ->
                             Log.w("RegistrationActivity", "Error adding user data to Firestore", e)
-
-                            //TODO: Remove this and navigate to the next page
                             val builder = AlertDialog.Builder(this)
                             builder.setTitle("Registration failed")
                             builder.setMessage("${task.exception}")
@@ -86,8 +81,6 @@ class RegisterActivity : AppCompatActivity() {
                         }
                 } else {
                     Log.w("RegistrationActivity", "Registration failed. ${task.exception}")
-
-                    //TODO: Remove this and navigate to the next page
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Registration failed")
                     builder.setMessage("${task.exception}")
