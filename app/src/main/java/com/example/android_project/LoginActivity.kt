@@ -39,19 +39,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginUser(email: String, password: String) {
         Log.d("YourActivity", "Login activated")
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Access granted")
-                    builder.setMessage("Login successful")
-                    builder.show()
-                } else {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("No access")
-                    builder.setMessage("Login unsuccessful")
-                    builder.show()
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("Access granted")
+                        builder.setMessage("Login successful")
+                        builder.show()
+                    } else {
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("No access")
+                        builder.setMessage("Login unsuccessful")
+                        builder.show()
+                    }
                 }
-            }
+        }
     }
-}

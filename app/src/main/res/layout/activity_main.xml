@@ -63,6 +63,24 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/SilverLakeBlue"
                 app:cornerRadius = "20dp"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="OR" />
+
+            <Button
+                android:id="@+id/RegisterButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/PrussianBlue"
+                android:text="REGISTER"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:cornerRadius="20dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
