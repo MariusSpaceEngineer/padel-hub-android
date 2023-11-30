@@ -1,7 +1,9 @@
 package com.example.android_project
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.android_project.fragments.HomeFragment
@@ -11,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity(){
 
     private lateinit var bottomNav : BottomNavigationView
+    private lateinit var bottomPadelClub: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("HomeActivity", "Activity created")
@@ -33,7 +36,14 @@ class HomeActivity : AppCompatActivity(){
                 else -> { false}
             }
         }
+
+        bottomPadelClub = findViewById(R.id.buttonPadelClub)
+        bottomPadelClub.setOnClickListener {
+            val intent = Intent(this, PadelClubsActivity::class.java)
+            startActivity(intent)
+        }
     }
+
     private  fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container,fragment)
