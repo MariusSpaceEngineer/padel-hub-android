@@ -20,7 +20,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wiliam Snoe"
+                android:text=""
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:shadowColor="@color/PrussianBlue"
