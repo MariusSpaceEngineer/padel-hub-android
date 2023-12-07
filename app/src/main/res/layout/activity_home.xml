@@ -7,13 +7,6 @@
     android:background="#ffffff"
     tools:context=".HomeActivity">
 
-    <Button
-        android:id="@+id/buttonPadelClub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Padel Club" />
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -21,16 +14,16 @@
         android:layout_above="@+id/bottomNav"
         />
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
+        android:scrollIndicators="left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_menu"
-        android:scrollIndicators="left"/>
+        app:menu="@menu/nav_menu" />
 </RelativeLayout>
