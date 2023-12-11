@@ -13,7 +13,6 @@ class PadelClubAdapter(private val padelClubs: List<PadelClub>, private val onCl
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvName: TextView = view.findViewById(R.id.tvName)
         val tvLocation: TextView = view.findViewById(R.id.tvLocation)
-        val tvCourts: TextView = view.findViewById(R.id.tvCourts)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,10 +24,10 @@ class PadelClubAdapter(private val padelClubs: List<PadelClub>, private val onCl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val padelClub = padelClubs[position]
         holder.tvName.text = "Name: ${padelClub.name}"
-        holder.tvLocation.text = "Location: Latitude - ${padelClub.location.latitude}, Longitude - ${padelClub.location.longitude}"
-        holder.tvCourts.text = "Courts: ${padelClub.courts.size}"
+        holder.tvLocation.text = "Location: ${padelClub.location}"
         holder.itemView.setOnClickListener { onClick(padelClub) }
     }
+
 
     override fun getItemCount() = padelClubs.size
 }
