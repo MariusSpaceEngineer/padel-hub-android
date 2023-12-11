@@ -43,7 +43,7 @@ class BookACourtFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Fetch the data
-        db.collection("padelClubs")
+        db.collection("clubs")
             .get()
             .addOnSuccessListener { result ->
                 val padelClubs = result.map { document ->
@@ -64,8 +64,9 @@ class BookACourtFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w("BookACourtFragment", "Error getting documents: ", exception)
             }
-    }
 
+
+    }
 
 }
 
