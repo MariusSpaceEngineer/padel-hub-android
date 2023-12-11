@@ -47,20 +47,50 @@ class TimestampAdapter(private val timestamps: List<Timestamp>, private val rese
 
     private fun isReservedOrWithin90Min(timestamp: Timestamp): Boolean {
         // Check if the timestamp is reserved
-        if (reservedTimestamps.contains(timestamp)) {
+        if (isTimestampReserved(timestamp)) {
             return true
         }
 
         // Check if the timestamp is within 90 minutes after a reserved timestamp
+        if (isWithin90MinAfterReserved(timestamp)) {
+            return true
+        }
+
+        // Check if there's enough time for a 90-minute match before the next booking
+        if (isEnoughTimeForMatchBeforeNextBooking(timestamp)) {
+            return false
+        }
+
+        return true
+    }
+
+    private fun isTimestampReserved(timestamp: Timestamp): Boolean {
+        return reservedTimestamps.contains(timestamp)
+    }
+
+    private fun isWithin90MinAfterReserved(timestamp: Timestamp): Boolean {
         val ninetyMinInMilliseconds = 90 * 60 * 1000
         for (reservedTimestamp in reservedTimestamps) {
-            if (timestamp.toDate().time - reservedTimestamp.toDate().time < ninetyMinInMilliseconds) {
+            val diff = timestamp.toDate().time - reservedTimestamp.toDate().time
+            if (diff in 0 until ninetyMinInMilliseconds) {
                 return true
             }
         }
-
         return false
     }
+
+    private fun isEnoughTimeForMatchBeforeNextBooking(timestamp: Timestamp): Boolean {
+        val ninetyMinInMilliseconds = 90 * 60 * 1000
+        val sortedReservedTimestamps = reservedTimestamps.sortedBy { it.toDate().time }
+        for (i in 0 until sortedReservedTimestamps.size - 1) {
+            val diff = sortedReservedTimestamps[i + 1].toDate().time - sortedReservedTimestamps[i].toDate().time
+            if (timestamp.toDate().time > sortedReservedTimestamps[i].toDate().time && diff >= ninetyMinInMilliseconds) {
+                return true
+            }
+        }
+        return false
+    }
+
 
 
 }
