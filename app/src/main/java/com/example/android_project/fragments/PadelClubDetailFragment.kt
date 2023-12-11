@@ -67,9 +67,12 @@ class PadelClubDetailFragment : Fragment() {
 
         val timestamps = mutableListOf<Timestamp>()
         for (i in 0 until 13) { // 13 half hours from 12:00 to 18:00
-            timestamps.add(Timestamp(calendar.timeInMillis / 1000, 0)) // Convert to Firestore Timestamp
+            val date = calendar.time
+            timestamps.add(Timestamp(date)) // Convert to Firestore Timestamp
             calendar.add(Calendar.MINUTE, 30)
         }
+
+
 
 
         var selectedItem: Timestamp? = null
