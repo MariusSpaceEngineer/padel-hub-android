@@ -54,13 +54,14 @@ class TimestampAdapter(private val timestamps: List<Timestamp>, private val rese
         // Check if the timestamp is within 90 minutes after a reserved timestamp
         val ninetyMinInMilliseconds = 90 * 60 * 1000
         for (reservedTimestamp in reservedTimestamps) {
-            if (reservedTimestamp.toDate().time - timestamp.toDate().time <= ninetyMinInMilliseconds) {
+            if (timestamp.toDate().time - reservedTimestamp.toDate().time < ninetyMinInMilliseconds) {
                 return true
             }
         }
 
         return false
     }
+
 
 }
 
