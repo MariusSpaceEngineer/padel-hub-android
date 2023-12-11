@@ -13,8 +13,7 @@ data class PadelClub(
     var id: String? = null,
     val picture: String? = null,
     val name: String = "",
-    val location: @RawValue GeoPoint = GeoPoint(0.0, 0.0),
-    val courts: @RawValue List<DocumentReference> = listOf(),
-    val reservedTimestamps: List<Timestamp> = listOf()
+    val location: String = ""
 ) : Parcelable
+
 
