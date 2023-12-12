@@ -24,25 +24,31 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        editTextEmail = findViewById(R.id.email)
-        editTextPassword = findViewById(R.id.password)
-        buttonLogin = findViewById(R.id.loginButton)
-        buttonRegister = findViewById(R.id.registerButton)
-
-        buttonLogin.setOnClickListener {
-            Log.d("LoginPage", "Login button clicked")
-            val email = editTextEmail.text.toString().trim()
-            val password = editTextPassword.text.toString().trim()
-
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(email, password)
-            }
-        }
-
-        buttonRegister.setOnClickListener {
-            Log.d("LoginPage", "Register button clicked")
-            val intent = Intent(this, RegisterActivity::class.java)
+        if(FirebaseAuth.getInstance().currentUser != null) {
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
+        }
+        else {
+            editTextEmail = findViewById(R.id.email)
+            editTextPassword = findViewById(R.id.password)
+            buttonLogin = findViewById(R.id.loginButton)
+            buttonRegister = findViewById(R.id.registerButton)
+
+            buttonLogin.setOnClickListener {
+                Log.d("LoginPage", "Login button clicked")
+                val email = editTextEmail.text.toString().trim()
+                val password = editTextPassword.text.toString().trim()
+
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    loginUser(email, password)
+                }
+            }
+
+            buttonRegister.setOnClickListener {
+                Log.d("LoginPage", "Register button clicked")
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

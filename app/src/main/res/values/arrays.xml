@@ -1,0 +1,22 @@
+<!-- res/values/arrays.xml -->
+<resources>
+
+    <string-array name="best_hand_options">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Both</item>
+    </string-array>
+
+    <string-array name="court_position_options">
+        <item>Backhand</item>
+        <item>Forehand</item>
+        <item>Both</item>
+    </string-array>
+
+    <string-array name="match_type_options">
+        <item>Competitive</item>
+        <item>Friendly</item>
+        <item>Both</item>
+    </string-array>
+
+</resources>
