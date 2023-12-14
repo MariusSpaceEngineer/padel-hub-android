@@ -6,11 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Reservation(
-    val clubId: String,
-    val players: List<String>,
-    val reservedTimestamp: Timestamp,
-    val userId: String,
-    val matchType: String,
-    val genderType: String
+    val clubId: String?,
+    val players: List<String>?,
+    val reservedTimestamp: Timestamp?,
+    val userId: String?,
+    val matchType: String?,
+    val genderType: String?
 ) : Parcelable
 
