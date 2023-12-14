@@ -1,3 +1,5 @@
+package com.example.android_project.fragments
+
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
