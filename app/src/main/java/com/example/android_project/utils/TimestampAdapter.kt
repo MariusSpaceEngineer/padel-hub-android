@@ -67,7 +67,23 @@ class TimestampAdapter(private val timestamps: List<Timestamp>, private val rese
             return true
         }
 
+        // Check if the timestamp is within 90 minutes before a reserved timestamp
+        if (isWithin90MinBeforeReserved(timestamp)) {
+            return true
+        }
+
         return false  // Return false if none of the above conditions are met
+    }
+
+    private fun isWithin90MinBeforeReserved(timestamp: Timestamp): Boolean {
+        val ninetyMinInMilliseconds = 90 * 60 * 1000
+        for (reservedTimestamp in reservedTimestamps) {
+            val diff = reservedTimestamp.toDate().time - timestamp.toDate().time
+            if (diff in 0 until ninetyMinInMilliseconds) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun isTimestampReserved(timestamp: Timestamp): Boolean {
