@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Preferences"
+        android:textSize="18sp"
+        android:textColor="@color/PrussianBlue"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Hand:" />
+    <Spinner
+        android:id="@+id/spinnerBestHand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/best_hand_options" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Court Position:" />
+    <Spinner
+        android:id="@+id/spinnerCourtPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/court_position_options" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Match Type:" />
+    <Spinner
+        android:id="@+id/spinnerMatchType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/match_type_options" />
+
+</LinearLayout>

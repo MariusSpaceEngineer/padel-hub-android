@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_profile"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -70,6 +71,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <Button
+                        android:id="@+id/playButton"
                         android:textColor="#fff"
                         android:background="@drawable/buttonstyle"
                         android:layout_marginTop="3dp"
@@ -110,7 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"/>
 
-        <TextView
+        <Button
             android:id="@+id/editPreferences"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -118,6 +120,7 @@
             android:gravity="end"
             android:paddingTop="3dip"
             android:paddingBottom="3dip"
+            android:background="#00FFFFFF"
             android:text="Edit"
             android:textColor="#0000EE"
             android:textSize="18sp"
@@ -134,53 +137,54 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="0dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-                <View
-                    android:layout_weight=".03"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".45"
-                    android:gravity="left"
-                    android:paddingTop="3dip"
-                    android:paddingBottom="3dip"
-                    android:text="Best hand"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:minLines="2"
-                    android:drawableLeft="@drawable/baseline_sports_tennis_24"
-                    android:drawablePadding="5dp"/>
-                <View
-                    android:layout_weight=".04"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
+            <View
+                android:layout_weight=".03"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".45"
+                android:gravity="left"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:text="Best hand"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:minLines="2"
+                android:drawableLeft="@drawable/baseline_sports_tennis_24"
+                android:drawablePadding="5dp"/>
+            <View
+                android:layout_weight=".04"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".45"
-                    android:gravity="end"
-                    android:paddingTop="3dip"
-                    android:paddingBottom="3dip"
-                    android:text="Right"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:minLines="2"/>
-                <View
-                    android:layout_weight=".03"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/bestHand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".45"
+                android:gravity="end"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:text="UNKNOWN"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:minLines="2"/>
+            <View
+                android:layout_weight=".03"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -217,13 +221,14 @@
                 android:layout_height="0dp"/>
 
             <TextView
+                android:id="@+id/courtPosition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".45"
                 android:gravity="end"
                 android:paddingTop="3dip"
                 android:paddingBottom="3dip"
-                android:text="Backhand"
+                android:text="UNKNOWN"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -269,13 +274,14 @@
                 android:layout_height="0dp"/>
 
             <TextView
+                android:id="@+id/matchType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".45"
                 android:gravity="end"
                 android:paddingTop="3dip"
                 android:paddingBottom="3dip"
-                android:text="Competitive"
+                android:text="UNKNOWN"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -287,5 +293,14 @@
         </LinearLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/logoutButton"
+        android:textColor="#fff"
+        android:background="@drawable/buttonstyle"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOG OUT"/>
 
 </LinearLayout>
