@@ -9,6 +9,7 @@ data class Reservation(
     val clubId: String?,
     val players: List<String>?,
     val reservedTimestamp: Timestamp?,
+    val isMatch: Boolean?,
     val userId: String?,
     val matchType: String?,
     val genderType: String?

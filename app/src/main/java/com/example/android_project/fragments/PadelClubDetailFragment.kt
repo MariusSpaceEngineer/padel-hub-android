@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -38,9 +39,12 @@ class PadelClubDetailFragment : Fragment() {
     private  lateinit var btnSelectDate : Button
     private lateinit var rvTimestamps: RecyclerView
     private lateinit var ivPicture: ImageView
+    private lateinit var cbMatchCheck: CheckBox
     private lateinit var tvSelectedDate: TextView
     private lateinit var tvSelectedTime: TextView
+    private lateinit var tvSelectMatch: TextView
     private lateinit var rgMatchType: RadioGroup
+    private lateinit var tvSelectGender: TextView
     private lateinit var rgGenderType: RadioGroup
     private lateinit var btnBookCourt: Button
     private lateinit var timestamps: MutableList<Timestamp>
@@ -74,17 +78,53 @@ class PadelClubDetailFragment : Fragment() {
         btnSelectDate = view.findViewById<Button>(R.id.btnSelectDate)
         rvTimestamps = view.findViewById<RecyclerView>(R.id.rvTimestamps)
         ivPicture = view.findViewById(R.id.ivPicture)
+        cbMatchCheck = view.findViewById<CheckBox>(R.id.cbMatchCheck)
         tvSelectedDate= view.findViewById<TextView>(R.id.tvSelectedDate)
         tvSelectedTime= view.findViewById<TextView>(R.id.tvSelectedTime)
+        tvSelectMatch= view.findViewById<TextView>(R.id.tvSelectMatch)
         rgMatchType = view.findViewById<RadioGroup>(R.id.rgMatchType)
+        tvSelectGender= view.findViewById<TextView>(R.id.tvSelectGender)
         rgGenderType = view.findViewById<RadioGroup>(R.id.rgGenderType)
         btnBookCourt = view.findViewById<Button>(R.id.btnBookCourt)
         btnBookCourt.isEnabled = false
+
+        // Uncheck the checkbox
+        cbMatchCheck.isChecked = false
+
+        // Hide the related fields
+        tvSelectMatch.visibility = View.GONE
+        tvSelectGender.visibility = View.GONE
+        rgMatchType.visibility = View.GONE
+        rgGenderType.visibility = View.GONE
+
+        // Clear the radio group selections
+        rgMatchType.clearCheck()
+        rgGenderType.clearCheck()
+
 
         // Add listeners to your views
         btnSelectDate.setOnClickListener {
             showDatePickerDialog()
         }
+        cbMatchCheck.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tvSelectMatch.visibility = View.VISIBLE
+                tvSelectGender.visibility = View.VISIBLE
+                rgMatchType.visibility = View.VISIBLE
+                rgGenderType.visibility = View.VISIBLE
+            } else {
+                tvSelectMatch.visibility = View.GONE
+                tvSelectGender.visibility = View.GONE
+                rgMatchType.visibility = View.GONE
+                rgGenderType.visibility = View.GONE
+
+                // Set the checked radio button id to -1 (which indicates no selection)
+                rgMatchType.clearCheck()
+                rgGenderType.clearCheck()
+            }
+            checkFieldsAndToggleButton()
+        }
+
         rgMatchType.setOnCheckedChangeListener { _, _ ->
             checkFieldsAndToggleButton()
         }
@@ -108,8 +148,8 @@ class PadelClubDetailFragment : Fragment() {
     }
 
     private fun checkFieldsAndToggleButton() {
-        // Check if a timestamp, match type, and gender type are selected
-        if (selectedItem != null && rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1) {
+        // Check if a timestamp is selected and either the checkmark is unchecked or both radio groups have a selection
+        if (selectedItem != null && (!cbMatchCheck.isChecked || (rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1))) {
             // If they are, enable the button
             btnBookCourt.isEnabled = true
         } else {
@@ -117,6 +157,7 @@ class PadelClubDetailFragment : Fragment() {
             btnBookCourt.isEnabled = false
         }
     }
+
 
 
     private fun showDatePickerDialog() {
@@ -217,35 +258,39 @@ class PadelClubDetailFragment : Fragment() {
         // Set click listener for your button
         btnBookCourt.setOnClickListener {
             // Check if a timestamp, match type, and gender type are selected
-            if (selectedItem != null && rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1) {
+            if (selectedItem != null && (!cbMatchCheck.isChecked || (rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1))) {
                 // Get the currently logged-in user
                 val user = FirebaseAuth.getInstance().currentUser
                 user?.let {
                     // Get the selected match type and gender type
-                    val selectedMatchTypeId = rgMatchType.checkedRadioButtonId
-                    val selectedGenderTypeId = rgGenderType.checkedRadioButtonId
-                    val matchType = view.findViewById<RadioButton>(selectedMatchTypeId).text.toString()
-                    val genderType = view.findViewById<RadioButton>(selectedGenderTypeId).text.toString()
+                    val matchTypeButton = if (rgMatchType.checkedRadioButtonId != -1) view.findViewById<RadioButton>(rgMatchType.checkedRadioButtonId) else null
+                    val genderTypeButton = if (rgGenderType.checkedRadioButtonId != -1) view.findViewById<RadioButton>(rgGenderType.checkedRadioButtonId) else null
+                    val matchType = matchTypeButton?.text?.toString()
+                    val genderType = genderTypeButton?.text?.toString()
 
-                    // Create a new reservation
+// Create a new reservation
                     val reservation = Reservation(
                         clubId = padelClub.id!!,
                         userId = user.uid, // use the user's ID
                         reservedTimestamp = selectedItem!!,
                         players = listOf(user.uid), // use the user's ID
+                        isMatch = cbMatchCheck.isChecked,
                         matchType = matchType,
                         genderType = genderType
                     )
 
-                    // Convert the Reservation object to a HashMap
+// Convert the Reservation object to a HashMap
                     val reservationMap = hashMapOf(
                         "clubId" to reservation.clubId,
                         "userId" to reservation.userId,
                         "reservedTimestamp" to reservation.reservedTimestamp,
                         "players" to reservation.players,
+                        "isMatch" to reservation.isMatch,
                         "matchType" to reservation.matchType,
                         "genderType" to reservation.genderType
                     )
+
+
 
                     // Add the new reservation to the Reservations collection in Firestore
                     val db = FirebaseFirestore.getInstance()

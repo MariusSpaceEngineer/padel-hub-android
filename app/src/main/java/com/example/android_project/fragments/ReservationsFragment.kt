@@ -47,12 +47,13 @@ class ReservationsFragment : Fragment() {
                     val clubId = document.getString("clubId")
                     val players = document.get("players") as List<String>?
                     val reservedTimestamp = document.getTimestamp("reservedTimestamp")
+                    val isMatch = document.getBoolean("isMatch")
                     val userId = document.getString("userId")
                     val matchType = document.getString("matchType")
                     val genderType = document.getString("genderType")
 
                     // Create a new Reservation object
-                    val reservation = Reservation(clubId, players, reservedTimestamp, userId, matchType, genderType)
+                    val reservation = Reservation(clubId, players, reservedTimestamp, isMatch, userId, matchType, genderType)
 
                     // Add the reservation to the adapter
                     adapter.addReservation(reservation)
