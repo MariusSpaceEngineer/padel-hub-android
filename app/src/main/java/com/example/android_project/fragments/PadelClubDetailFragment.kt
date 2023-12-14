@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android_project.R
 import com.example.android_project.models.PadelClub
 import com.example.android_project.models.Reservation
@@ -35,6 +37,7 @@ class PadelClubDetailFragment : Fragment() {
     private lateinit var tvLocation: TextView
     private  lateinit var btnSelectDate : Button
     private lateinit var rvTimestamps: RecyclerView
+    private lateinit var ivPicture: ImageView
     private lateinit var tvSelectedDate: TextView
     private lateinit var tvSelectedTime: TextView
     private lateinit var rgMatchType: RadioGroup
@@ -70,6 +73,7 @@ class PadelClubDetailFragment : Fragment() {
         tvLocation = view.findViewById(R.id.tvLocation)
         btnSelectDate = view.findViewById<Button>(R.id.btnSelectDate)
         rvTimestamps = view.findViewById<RecyclerView>(R.id.rvTimestamps)
+        ivPicture = view.findViewById(R.id.ivPicture)
         tvSelectedDate= view.findViewById<TextView>(R.id.tvSelectedDate)
         tvSelectedTime= view.findViewById<TextView>(R.id.tvSelectedTime)
         rgMatchType = view.findViewById<RadioGroup>(R.id.rgMatchType)
@@ -97,6 +101,10 @@ class PadelClubDetailFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         // Add item decoration to RecyclerView
         rvTimestamps.addItemDecoration(CustomItemDecoration(2))  // replace 10 with your desired space
+
+        Glide.with(this)
+            .load(padelClub?.picture)
+            .into(ivPicture)
     }
 
     private fun checkFieldsAndToggleButton() {
