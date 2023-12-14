@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.android_project.fragments.BookACourtFragment
 import com.example.android_project.fragments.HomeFragment
+import com.example.android_project.fragments.JoinGameFragment
 import com.example.android_project.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -29,6 +30,10 @@ class HomeActivity : AppCompatActivity(){
                 }
                 R.id.bookCourt -> {
                     loadFragment(BookACourtFragment())
+                    true
+                }
+                R.id.joinGame -> {
+                    loadFragment(JoinGameFragment())
                     true
                 }
                 R.id.profile -> {
