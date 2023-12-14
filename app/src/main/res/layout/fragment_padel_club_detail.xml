@@ -18,12 +18,115 @@
         android:layout_marginTop="8dp"
         android:textSize="16sp" />
 
+    <Button
+        android:id="@+id/btnSelectDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Date" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTimestamps"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp" />
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvSelectedTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Select Match Type:" />
+
+        <RadioGroup
+            android:id="@+id/rgMatchType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbCompetitive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Competitive" />
+
+            <RadioButton
+                android:id="@+id/rbFriendly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friendly" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Gender Type:" />
+
+        <RadioGroup
+            android:id="@+id/rgGenderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbAllPlayers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Players" />
+
+            <RadioButton
+                android:id="@+id/rbMixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mixed" />
+
+            <RadioButton
+                android:id="@+id/rbMenOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Men Only" />
+
+            <RadioButton
+                android:id="@+id/rbWomenOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Women Only" />
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnBookCourt"
