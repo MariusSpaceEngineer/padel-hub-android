@@ -1,0 +1,15 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/timestamp_item_background"
+        android:padding="2px"
+        tools:ignore="MissingConstraints" /> <!-- adjust this value to control the spacing between items -->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

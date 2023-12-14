@@ -60,17 +60,10 @@ class RegisterActivity : AppCompatActivity() {
                     val db = FirebaseFirestore.getInstance()
                     val userDocument = db.collection("userInformation").document(uid)
 
-                    val preferences = hashMapOf(
-                        "bestHand" to "Undefined",
-                        "courtPosition" to "Undefined",
-                        "matchType" to "Undefined",
-                    )
-
                     val userData = hashMapOf(
                         "name" to "$firstName $lastName",
                         "email" to email,
-                        "gender" to gender,
-                        "preferences" to preferences
+                        "gender" to gender
                     )
 
                     userDocument.set(userData)
