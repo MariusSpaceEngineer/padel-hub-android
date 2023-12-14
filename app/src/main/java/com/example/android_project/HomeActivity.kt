@@ -1,5 +1,6 @@
 package com.example.android_project
 
+import JoinGameFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.android_project.fragments.BookACourtFragment
 import com.example.android_project.fragments.HomeFragment
-import com.example.android_project.fragments.JoinGameFragment
 import com.example.android_project.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
