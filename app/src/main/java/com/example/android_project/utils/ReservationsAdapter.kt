@@ -6,14 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
-import com.example.android_project.models.Reservation
+import com.example.android_project.models.UserReservation
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>() {
 
-    private val reservations = mutableListOf<Reservation>()
+    private val reservations = mutableListOf<UserReservation>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val clubId: TextView = view.findViewById(R.id.clubId)
+        val clubName: TextView = view.findViewById(R.id.clubName)
         val genderType: TextView = view.findViewById(R.id.genderType)
         val matchType: TextView = view.findViewById(R.id.matchType)
         val players: TextView = view.findViewById(R.id.players)
@@ -28,17 +30,23 @@ class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val reservation = reservations[position]
-        holder.clubId.text = reservation.clubId
-        holder.genderType.text = reservation.genderType
-        holder.matchType.text = reservation.matchType
-        holder.players.text = reservation.players!!.joinToString(", ")
-        holder.reservedTimestamp.text = reservation.reservedTimestamp.toString()
+        holder.clubName.text = "Club Name: ${reservation.clubName}"
+        holder.matchType.text = "Match Type: ${reservation.matchType}"
+        holder.genderType.text = "Gender Type : ${reservation.genderType}"
+        holder.players.text = "Number Of Players: ${reservation.players?.size}"
+
+        val timestamp = reservation.reservedTimestamp?.toDate()
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val dateString = formatter.format(timestamp)
+        holder.reservedTimestamp.text = "Reserved Timestamp: $dateString"
     }
 
     override fun getItemCount() = reservations.size
 
-    fun addReservation(reservation: Reservation) {
+    fun addReservation(reservation: UserReservation) {
         reservations.add(reservation)
-        notifyItemInserted(reservations.size - 1)
+        reservations.sortBy { it.reservedTimestamp }
+        notifyDataSetChanged()
     }
+
 }
