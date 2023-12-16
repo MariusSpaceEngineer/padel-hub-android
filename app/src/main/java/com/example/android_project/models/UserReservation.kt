@@ -6,11 +6,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserReservation(
-    val clubName: String?, // This will be fetched later using clubId
-    val players: List<String>?, // This is a list of players
-    val reservedTimestamp: Timestamp?, // This will be shown as a date
-    val isMatch: Boolean?, // This will be used for later logic
-    val matchType: String?, // This is the match type
-    val genderType: String? // This is the gender type
+    val documentId: String? = null,
+    val clubName: String? = null,
+    val players: List<String>? = null,
+    val reservedTimestamp: Timestamp? = null,
+    val isMatch: Boolean? = null,
+    val matchType: String? = null,
+    val genderType: String? = null
 ) : Parcelable
+
 

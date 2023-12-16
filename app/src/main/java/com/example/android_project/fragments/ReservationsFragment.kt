@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
+import com.example.android_project.fragments.ConfigureReservationFragment
 import com.example.android_project.models.UserReservation
 import com.example.android_project.utils.ReservationsAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -20,8 +21,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ReservationsFragment : Fragment() {
-
+class ReservationsFragment : Fragment(), ReservationsAdapter.OnItemClickListener {
     private lateinit var adapter: ReservationsAdapter
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class ReservationsFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = ReservationsAdapter()
+        adapter = ReservationsAdapter(this)
         recyclerView.adapter = adapter
 
         fetchReservations()
@@ -54,6 +54,7 @@ class ReservationsFragment : Fragment() {
                         val clubName = fetchClubName(clubId)
 
                         // Use local variables instead of a data class
+                        val documentId = document.id
                         val players = document.get("players") as List<String>?
                         val reservedTimestamp = document.getTimestamp("reservedTimestamp")
                         val isMatch = document.getBoolean("isMatch")
@@ -61,7 +62,7 @@ class ReservationsFragment : Fragment() {
                         val genderType = document.getString("genderType")
 
                         // Create a new ReservationData object
-                        val reservationData = UserReservation(clubName, players, reservedTimestamp, isMatch, matchType, genderType)
+                        val reservationData = UserReservation(documentId,clubName, players, reservedTimestamp, isMatch, matchType, genderType)
 
                         // Add the reservation to the adapter
                         withContext(Dispatchers.Main) {
@@ -97,9 +98,12 @@ class ReservationsFragment : Fragment() {
             }
     }
 
-
-
-
-
+    override fun onItemClick(reservation: UserReservation) {
+        val fragment = ConfigureReservationFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("reservation", reservation)
+        fragment.arguments = bundle
+        parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit() // Replace 'R.id.container' with your actual container ID
+    }
 
 }

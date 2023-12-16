@@ -1,16 +1,26 @@
 package com.example.android_project.utils
 
+import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
+import com.example.android_project.fragments.ConfigureReservationFragment
 import com.example.android_project.models.UserReservation
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>() {
+
+class ReservationsAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>() {
+    interface OnItemClickListener {
+        fun onItemClick(reservation: UserReservation)
+    }
+
 
     private val reservations = mutableListOf<UserReservation>()
 
@@ -20,6 +30,8 @@ class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>
         val matchType: TextView = view.findViewById(R.id.matchType)
         val players: TextView = view.findViewById(R.id.players)
         val reservedTimestamp: TextView = view.findViewById(R.id.reservedTimestamp)
+        val navigateButton: Button = view.findViewById(R.id.navigateButton) // Assuming you have a Button in your item_reservation layout
+
     }
 
 
@@ -28,6 +40,7 @@ class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>
         return ViewHolder(view)
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val reservation = reservations[position]
         holder.clubName.text = "Club Name: ${reservation.clubName}"
@@ -39,6 +52,18 @@ class ReservationsAdapter : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>
         val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
         val dateString = formatter.format(timestamp)
         holder.reservedTimestamp.text = "Reserved Timestamp: $dateString"
+
+        // Show or hide the button based on the isMatch value
+        if (reservation.isMatch == false) {
+            holder.navigateButton.visibility = View.VISIBLE
+            holder.navigateButton.setOnClickListener {
+                val reservation = reservations[position]
+                listener.onItemClick(reservation)
+            }
+        }
+         else {
+            holder.navigateButton.visibility = View.GONE
+        }
     }
 
     override fun getItemCount() = reservations.size
