@@ -44,9 +44,10 @@ class ReservationsAdapter(private val listener: OnItemClickListener) : RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val reservation = reservations[position]
         holder.clubName.text = "Club Name: ${reservation.clubName}"
-        holder.matchType.text = "Match Type: ${reservation.matchType}"
-        holder.genderType.text = "Gender Type : ${reservation.genderType}"
+        holder.matchType.text = "Match Type: ${reservation.matchType ?: "None"}"
+        holder.genderType.text = "Gender Type : ${reservation.genderType ?: "None"}"
         holder.players.text = "Number Of Players: ${reservation.players?.size}"
+
 
         val timestamp = reservation.reservedTimestamp?.toDate()
         val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
@@ -70,8 +71,9 @@ class ReservationsAdapter(private val listener: OnItemClickListener) : RecyclerV
 
     fun addReservation(reservation: UserReservation) {
         reservations.add(reservation)
-        reservations.sortBy { it.reservedTimestamp }
+        reservations.sortWith(compareBy<UserReservation> { it.isMatch }.thenBy { it.reservedTimestamp })
         notifyDataSetChanged()
     }
+
 
 }
