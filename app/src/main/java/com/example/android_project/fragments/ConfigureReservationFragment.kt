@@ -42,6 +42,8 @@ class ConfigureReservationFragment : Fragment() {
         val rgMatchType: RadioGroup = view.findViewById(R.id.rgMatchType)
         val rgGenderType: RadioGroup = view.findViewById(R.id.rgGenderType)
         val saveButton: Button = view.findViewById(R.id.saveButton)
+        saveButton.isEnabled = false // Disable the button initially
+
 
         clubName.text = "Club Name: ${reservation.clubName}"
         val timestamp = reservation.reservedTimestamp?.toDate()
@@ -49,6 +51,14 @@ class ConfigureReservationFragment : Fragment() {
         val dateString = formatter.format(timestamp)
         // You'll need to format the reservedTimestamp into a readable format
         reservedTimestamp.text = "Reserved Timestamp: $dateString"
+
+        // Enable the button when both radio groups have a selection
+        rgMatchType.setOnCheckedChangeListener { _, _ ->
+            saveButton.isEnabled = rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1
+        }
+        rgGenderType.setOnCheckedChangeListener { _, _ ->
+            saveButton.isEnabled = rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1
+        }
 
         when (reservation.matchType) {
             "Competitive" -> rgMatchType.check(R.id.rbCompetitive)
@@ -77,28 +87,46 @@ class ConfigureReservationFragment : Fragment() {
                 else -> null
             }
 
-            val reservationMap = hashMapOf(
-                "matchType" to matchType,
-                "genderType" to genderType,
-                "isMatch" to true
-            )
+            if (matchType != null && genderType != null) {
+                val reservationMap = hashMapOf(
+                    "matchType" to matchType,
+                    "genderType" to genderType,
+                    "isMatch" to true
+                )
 
-            val nonNullMap = reservationMap.filterValues { it != null }
+                val nonNullMap = reservationMap.filterValues { it != null }
 
-            db.collection("reservations")
-                .document(reservation.documentId.toString()) // Replace with the ID of the document to update
-                .update(nonNullMap)
-                .addOnSuccessListener {
-                    Snackbar.make(view, "Reservation updated successfully", Snackbar.LENGTH_SHORT).show()
-                    // Navigate to a specific Fragment
-                    val fragment = ReservationsFragment() // Replace with your target Fragment class
-                    parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit() // Replace 'R.id.container' with your actual container ID
-                }
-                .addOnFailureListener { e ->
-                    Snackbar.make(view, "Error updating reservation: ${e.message}", Snackbar.LENGTH_SHORT).show()
-                }
+                db.collection("reservations")
+                    .document(reservation.documentId.toString()) // Replace with the ID of the document to update
+                    .update(nonNullMap)
+                    .addOnSuccessListener {
+                        Snackbar.make(
+                            view,
+                            "Reservation updated successfully",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        // Navigate to a specific Fragment
+                        val fragment =
+                            ReservationsFragment() // Replace with your target Fragment class
+                        parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
+                            .commit() // Replace 'R.id.container' with your actual container ID
+                    }
+                    .addOnFailureListener { e ->
+                        Snackbar.make(
+                            view,
+                            "Error updating reservation: ${e.message}",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+            } else {
+                Snackbar.make(
+                    view,
+                    "Please select both match type and gender type",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
         }
-
-
     }
 }
