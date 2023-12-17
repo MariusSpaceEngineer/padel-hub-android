@@ -5,6 +5,7 @@
     android:padding="16dp">
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/clubId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +15,34 @@
     <TextView
         android:id="@+id/genderType"
         android:layout_width="match_parent"
+=======
+        android:id="@+id/tvClubId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvGenderType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvMatchType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvReservedTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="wrap_content"
+>>>>>>> parent of 50ce3ad (Made it possible to join games)
         android:layout_height="wrap_content"
         android:textSize="16sp" />
 
