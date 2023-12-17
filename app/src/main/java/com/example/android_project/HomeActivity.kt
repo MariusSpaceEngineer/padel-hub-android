@@ -1,5 +1,6 @@
 package com.example.android_project
 
+import JoinGameFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -33,11 +34,16 @@ class HomeActivity : AppCompatActivity() {
                     loadFragment(BookACourtFragment())
                     true
                 }
+                R.id.joinGame -> {
+                    loadFragment(JoinGameFragment())
+                    true
+                }
                 R.id.profile -> {
                     loadFragment(ProfileFragment())
                     true
                 }
-                else -> { false }
+
+                else -> { false}
             }
         }
     }

@@ -63,7 +63,12 @@ class RegisterActivity : AppCompatActivity() {
                     val userData = hashMapOf(
                         "name" to "$firstName $lastName",
                         "email" to email,
-                        "gender" to gender
+                        "gender" to gender,
+                        "preferences" to hashMapOf(
+                            "bestHand" to "UNDEFINED",
+                            "courtPosition" to "UNDEFINED",
+                            "matchType" to "UNDEFINED"
+                        ),
                     )
 
                     userDocument.set(userData)

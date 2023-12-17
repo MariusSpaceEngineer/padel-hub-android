@@ -3,12 +3,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class JoinGameFragment : Fragment() {
@@ -17,6 +21,7 @@ class JoinGameFragment : Fragment() {
     private lateinit var adapter: ReservationAdapter
 
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +62,6 @@ class JoinGameFragment : Fragment() {
                     players?.size ?: 0 < 4
                 }
 
-                // Process the filtered reservations
                 val reservations = filteredReservations.map { it.id to it.data } // Pairing reservation ID with data
                 Log.d("JoinGameFragment", "Reservations: $reservations")
                 adapter.setReservations(reservations)
@@ -69,7 +73,32 @@ class JoinGameFragment : Fragment() {
     }
 
     private fun joinReservation(reservationId: String) {
-        // Implement your logic for joining the reservation here
-        // You may want to navigate to another fragment or perform other actions
+        val user = auth.currentUser?.uid ?: return
+        val reservationRef = db.collection("reservations").document(reservationId)
+
+        db.runTransaction { transaction ->
+            val reservation = transaction.get(reservationRef)
+            val players = reservation["players"] as? List<*>
+
+            if ((players?.size ?: 0) < 4 && !players?.contains(user)!!) {
+                transaction.update(reservationRef, "players", players.plus(user))
+            } else {
+                showToast("You are already in this match!")
+            }
+
+            null
+        }.addOnSuccessListener {
+            showToast("Successfully joined the match!")
+            loadReservations()
+            Log.d("JoinGameFragment", "Transaction success!")
+        }.addOnFailureListener { e ->
+            Log.w("JoinGameFragment", "Transaction failure.", e)
+        }
+    }
+
+    private fun showToast(message: String) {
+        activity?.runOnUiThread {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
