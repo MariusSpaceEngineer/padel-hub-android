@@ -1,67 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- res/layout/item_reservation.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
 
-    <TextView
-<<<<<<< HEAD
-        android:id="@+id/clubId"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/genderType"
-        android:layout_width="match_parent"
-=======
-        android:id="@+id/tvClubId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tvClubId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvGenderType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tvGenderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvMatchType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tvMatchType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvReservedTimestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/tvReservedTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvPeopleCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnJoin"
         android:layout_width="wrap_content"
->>>>>>> parent of 50ce3ad (Made it possible to join games)
         android:layout_height="wrap_content"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/matchType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/players"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/reservedTimestamp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp" />
+        android:text="Join"/>
 
 </LinearLayout>
