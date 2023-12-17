@@ -68,7 +68,7 @@ class ProfileFragment : Fragment(), PreferencesDialogFragment.PreferencesChangeL
             val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
 
             // Select the 'Home' item in the BottomNavigationView
-            bottomNav.selectedItemId = R.id.joinGame
+            bottomNav.selectedItemId = R.id.home
         }
 
         return view

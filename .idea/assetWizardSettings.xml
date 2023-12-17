@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/emoji_people/baseline_emoji_people_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/mood/baseline_mood_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="23344c" />
-                            <entry key="outputName" value="baseline_emoji_people_24" />
+                            <entry key="outputName" value="baseline_mood_24" />
                           </map>
                         </option>
                       </PersistentState>
