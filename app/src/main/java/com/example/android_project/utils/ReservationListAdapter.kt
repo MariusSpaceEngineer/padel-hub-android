@@ -1,22 +1,19 @@
 package com.example.android_project.utils
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
-import com.example.android_project.fragments.ConfigureReservationFragment
 import com.example.android_project.models.UserReservation
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class ReservationsAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<ReservationsAdapter.ViewHolder>() {
+class ReservationListAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<ReservationListAdapter.ViewHolder>() {
     interface OnItemClickListener {
         fun onItemClick(reservation: UserReservation)
     }
@@ -36,7 +33,7 @@ class ReservationsAdapter(private val listener: OnItemClickListener) : RecyclerV
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reservation, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reservation_list, parent, false)
         return ViewHolder(view)
     }
 

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android_project.R
 import com.example.android_project.fragments.ConfigureReservationFragment
 import com.example.android_project.models.UserReservation
-import com.example.android_project.utils.ReservationsAdapter
+import com.example.android_project.utils.ReservationListAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -25,8 +25,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ReservationsFragment : Fragment(), ReservationsAdapter.OnItemClickListener {
-    private lateinit var adapter: ReservationsAdapter
+class ReservationListFragment : Fragment(), ReservationListAdapter.OnItemClickListener {
+    private lateinit var adapter: ReservationListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +36,7 @@ class ReservationsFragment : Fragment(), ReservationsAdapter.OnItemClickListener
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = ReservationsAdapter(this)
+        adapter = ReservationListAdapter(this)
         recyclerView.adapter = adapter
 
         fetchReservations()
