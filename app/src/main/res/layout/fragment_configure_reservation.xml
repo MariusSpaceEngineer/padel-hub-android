@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/clubName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/reservedTimestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Type of Match:"
+        android:layout_gravity="center_horizontal"/>
+    <RadioGroup
+        android:id="@+id/rgMatchType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbCompetitive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Competitive" />
+
+        <RadioButton
+            android:id="@+id/rbFriendly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friendly" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Gender Type:"
+        android:textSize="16sp" />
+    <RadioGroup
+        android:id="@+id/rgGenderType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbAllPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Players" />
+
+        <RadioButton
+            android:id="@+id/rbMixed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mixed" />
+
+        <RadioButton
+            android:id="@+id/rbMenOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Men Only" />
+
+        <RadioButton
+            android:id="@+id/rbWomenOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Women Only" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
