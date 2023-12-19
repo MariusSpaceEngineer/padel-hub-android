@@ -1,6 +1,6 @@
 package com.example.android_project.fragments
 
-import ReservationsFragment
+import ReservationListFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         val cardSeeReservations: CardView = view.findViewById(R.id.cardSeeReservations)
         cardSeeReservations.setOnClickListener {
-            val fragment = ReservationsFragment() // Replace with your fragment class
+            val fragment = ReservationListFragment() // Replace with your fragment class
             parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
         }
 

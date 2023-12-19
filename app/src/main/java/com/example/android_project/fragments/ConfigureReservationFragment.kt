@@ -1,12 +1,11 @@
 package com.example.android_project.fragments
 
-import ReservationsFragment
+import ReservationListFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -107,7 +106,7 @@ class ConfigureReservationFragment : Fragment() {
                         ).show()
                         // Navigate to a specific Fragment
                         val fragment =
-                            ReservationsFragment() // Replace with your target Fragment class
+                            ReservationListFragment() // Replace with your target Fragment class
                         parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
                             .commit() // Replace 'R.id.container' with your actual container ID
                     }
