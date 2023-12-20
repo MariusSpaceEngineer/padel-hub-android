@@ -8,6 +8,7 @@
         android:id="@+id/bookCourt"
         android:icon="@drawable/field"
         android:title="Book court"  />
+
     <item
         android:id="@+id/joinGame"
         android:icon="@drawable/baseline_emoji_people_24"
