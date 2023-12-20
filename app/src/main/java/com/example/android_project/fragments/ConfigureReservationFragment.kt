@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.android_project.R
 import com.example.android_project.databinding.FragmentConfigureReservationBinding
 import com.example.android_project.models.UserReservation
 import com.example.android_project.services.PadelClubService
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -56,6 +59,13 @@ class ConfigureReservationFragment : Fragment() {
         reservedTimestamp.text = "Reserved Timestamp: ${formatDate(reservation.reservedTimestamp)}"
         binding.rgMatchType.check(-1)
         binding.rgGenderType.check(-1)
+
+        // Fetch the gender and disable the RadioButton
+        // Get the current user ID
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        lifecycleScope.launch {
+            _padelClubService.fetchGenderAndDisableRadioButton(userId!!, binding.rbWomenOnly, binding.rbMenOnly)
+        }
 
 
         when (reservation.matchType) {
