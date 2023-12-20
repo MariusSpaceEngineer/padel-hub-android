@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.android_project.databinding.FragmentPadelClubOverviewBinding
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -92,6 +94,13 @@ class PadelClubOverviewFragment : Fragment() {
                 binding.tvSelectGender.visibility = View.VISIBLE
                 binding.rgMatchType.visibility = View.VISIBLE
                 binding.rgGenderType.visibility = View.VISIBLE
+
+                // Fetch the gender and disable the RadioButton
+                // Get the current user ID
+                val userId = FirebaseAuth.getInstance().currentUser?.uid
+                lifecycleScope.launch {
+                    _padelClubService.fetchGenderAndDisableRadioButton(userId!!, binding.rbWomenOnly, binding.rbMenOnly)
+                }
             } else {
                 binding.tvSelectMatch.visibility = View.GONE
                 binding.tvSelectGender.visibility = View.GONE

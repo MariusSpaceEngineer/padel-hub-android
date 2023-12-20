@@ -1,6 +1,7 @@
 package com.example.android_project.services
 
 import android.util.Log
+import android.widget.RadioButton
 import com.example.android_project.models.PadelClub
 import com.example.android_project.models.UserReservation
 import com.google.firebase.Timestamp
@@ -81,7 +82,7 @@ class PadelClubService {
     suspend fun fetchReservations(userId: String, currentTimestamp: Timestamp): List<UserReservation> {
         return withContext(Dispatchers.IO) {
             val task = db.collection("reservations")
-                .whereEqualTo("userId", userId)
+                .whereArrayContains("players", userId)
                 .whereGreaterThanOrEqualTo("reservedTimestamp", currentTimestamp)
                 .get()
                 .await()
@@ -103,6 +104,7 @@ class PadelClubService {
             }
         }
     }
+
 
     private suspend fun fetchClubName(clubId: String?): String? {
         return withContext(Dispatchers.IO) {
@@ -130,6 +132,33 @@ class PadelClubService {
                 onFailure(e)
             }
     }
+
+    suspend fun fetchGenderAndDisableRadioButton(userId: String, rbWomenOnly: RadioButton, rbMenOnly: RadioButton) {
+        return withContext(Dispatchers.IO) {
+            val docRef = db.collection("userInformation").document(userId)
+            docRef.get().addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d("FirestoreService", "DocumentSnapshot data: ${document.data}")
+
+                    // Check the value of the gender field
+                    val gender = document.getString("gender")
+
+                        if (gender == "Male") {
+                            // Disable the rbWomenOnly RadioButton
+                            rbWomenOnly.isEnabled = false
+                        } else if (gender == "Female") {
+                            // Disable the rbMenOnly RadioButton
+                            rbMenOnly.isEnabled = false
+                        }
+                } else {
+                    Log.w("PadelClubOverviewFragment","No such document")
+                }
+            }.addOnFailureListener { exception ->
+                Log.w("PadelClubOverviewFragment", exception)
+            }
+        }
+    }
+
 }
 
 
