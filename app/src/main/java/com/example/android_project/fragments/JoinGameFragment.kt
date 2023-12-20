@@ -56,10 +56,10 @@ class JoinGameFragment : Fragment() {
             .whereLessThan("reservedTimestamp", sevenDaysFromNow)
             .get()
             .addOnSuccessListener { querySnapshot ->
-                // Filter the results based on the array length
                 val filteredReservations = querySnapshot.documents.filter { doc ->
                     val players = doc["players"] as? List<*>
-                    players?.size ?: 0 < 4
+                    val isMatch = doc["isMatch"] as? Boolean
+                    (players?.size ?: 0) < 4 && isMatch == true
                 }
 
                 val reservations = filteredReservations.map { it.id to it.data } // Pairing reservation ID with data
