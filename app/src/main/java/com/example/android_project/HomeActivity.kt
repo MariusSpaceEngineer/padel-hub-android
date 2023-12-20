@@ -1,15 +1,11 @@
 package com.example.android_project
 
 import JoinGameFragment
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.example.android_project.fragments.BookACourtFragment
+import com.example.android_project.fragments.PadelClubListFragment
 import com.example.android_project.fragments.HomeFragment
 import com.example.android_project.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bookCourt -> {
-                    loadFragment(BookACourtFragment())
+                    loadFragment(PadelClubListFragment())
                     true
                 }
                 R.id.joinGame -> {

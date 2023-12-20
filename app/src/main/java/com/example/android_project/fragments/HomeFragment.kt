@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         val cardBookCourt: CardView = view.findViewById(R.id.cardBookCourt)
         cardBookCourt.setOnClickListener {
-            val fragment = BookACourtFragment() // Replace with your fragment class
+            val fragment = PadelClubListFragment() // Replace with your fragment class
             parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
         }
 
@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
         val cardJoinMatch: CardView = view.findViewById(R.id.cardJoinMatch)
         cardJoinMatch.setOnClickListener {
-            val fragment = BookACourtFragment() // Replace with your fragment class
+            val fragment = PadelClubListFragment() // Replace with your fragment class
             parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
         }
 
