@@ -16,6 +16,8 @@ import java.util.Locale
 class ReservationListAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<ReservationListAdapter.ViewHolder>() {
     interface OnItemClickListener {
         fun onItemClick(reservation: UserReservation)
+
+        fun onItemDetailClick(reservation: UserReservation)
     }
 
 
@@ -61,6 +63,10 @@ class ReservationListAdapter(private val listener: OnItemClickListener) : Recycl
         }
          else {
             holder.navigateButton.visibility = View.GONE
+        }
+
+        holder.itemView.setOnClickListener {
+            listener.onItemDetailClick(reservation)
         }
     }
 

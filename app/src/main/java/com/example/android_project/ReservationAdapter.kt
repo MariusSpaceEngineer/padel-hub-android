@@ -37,7 +37,7 @@ class ReservationAdapter(
         val reservedTimestamp = reservationData["reservedTimestamp"] as? Timestamp ?: Timestamp.now()
 
         val date = reservedTimestamp.toDate()
-        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val sdf = SimpleDateFormat("HH:mm dd/MM", Locale.getDefault())
         val formattedTime = sdf.format(date)
         Log.d("ReservationAdapter", "Reserved timestamp: $reservedTimestamp")
 

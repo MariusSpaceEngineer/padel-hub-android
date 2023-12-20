@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_project.R
 import com.example.android_project.databinding.FragmentReservationListBinding
 import com.example.android_project.fragments.ConfigureReservationFragment
+import com.example.android_project.fragments.ReservationDetailsFragment
 import com.example.android_project.models.UserReservation
 import com.example.android_project.services.PadelClubService
 import com.example.android_project.utils.ReservationListAdapter
@@ -99,5 +100,13 @@ class ReservationListFragment : Fragment(), ReservationListAdapter.OnItemClickLi
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit() // Replace 'R.id.container' with your actual container ID
+    }
+
+    override fun onItemDetailClick(reservation: UserReservation) {
+        val action = ReservationDetailsFragment.newInstance(reservation)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, action)
+            .addToBackStack(null)
+            .commit()
     }
 }
