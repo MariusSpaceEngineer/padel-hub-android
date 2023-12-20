@@ -1,25 +1,29 @@
 package com.example.android_project.fragments
 
-import ReservationListFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.android_project.R
+import com.example.android_project.databinding.FragmentConfigureReservationBinding
 import com.example.android_project.models.UserReservation
+import com.example.android_project.services.PadelClubService
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class ConfigureReservationFragment : Fragment() {
 
+    private val _padelClubService = PadelClubService()
+    private var _binding: FragmentConfigureReservationBinding? = null
+
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
+
     private lateinit var reservation: UserReservation
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,55 +34,69 @@ class ConfigureReservationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_configure_reservation, container, false)
+        _binding = FragmentConfigureReservationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews(view)
+    }
 
-        val clubName: TextView = view.findViewById(R.id.clubName)
-        val reservedTimestamp: TextView = view.findViewById(R.id.reservedTimestamp)
-        val rgMatchType: RadioGroup = view.findViewById(R.id.rgMatchType)
-        val rgGenderType: RadioGroup = view.findViewById(R.id.rgGenderType)
-        val saveButton: Button = view.findViewById(R.id.saveButton)
-        saveButton.isEnabled = false // Disable the button initially
-
+    private fun setupViews(view: View) {
+        val clubName: TextView = binding.clubName
+        val reservedTimestamp: TextView = binding.reservedTimestamp
 
         clubName.text = "Club Name: ${reservation.clubName}"
-        val timestamp = reservation.reservedTimestamp?.toDate()
-        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        val dateString = formatter.format(timestamp)
-        // You'll need to format the reservedTimestamp into a readable format
-        reservedTimestamp.text = "Reserved Timestamp: $dateString"
+        reservedTimestamp.text = "Reserved Timestamp: ${formatDate(reservation.reservedTimestamp)}"
+        binding.rgMatchType.check(-1)
+        binding.rgGenderType.check(-1)
 
-        // Enable the button when both radio groups have a selection
-        rgMatchType.setOnCheckedChangeListener { _, _ ->
-            saveButton.isEnabled = rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1
-        }
-        rgGenderType.setOnCheckedChangeListener { _, _ ->
-            saveButton.isEnabled = rgMatchType.checkedRadioButtonId != -1 && rgGenderType.checkedRadioButtonId != -1
-        }
 
         when (reservation.matchType) {
-            "Competitive" -> rgMatchType.check(R.id.rbCompetitive)
-            "Friendly" -> rgMatchType.check(R.id.rbFriendly)
+            "Competitive" -> binding.rgMatchType.check(R.id.rbCompetitive)
+            "Friendly" -> binding.rgMatchType.check(R.id.rbFriendly)
         }
 
         when (reservation.genderType) {
-            "All Players" -> rgGenderType.check(R.id.rbAllPlayers)
-            "Mixed" -> rgGenderType.check(R.id.rbMixed)
-            "Men Only" -> rgGenderType.check(R.id.rbMenOnly)
-            "Women Only" -> rgGenderType.check(R.id.rbWomenOnly)
+            "All Players" -> binding.rgGenderType.check(R.id.rbAllPlayers)
+            "Mixed" -> binding.rgGenderType.check(R.id.rbMixed)
+            "Men Only" -> binding.rgGenderType.check(R.id.rbMenOnly)
+            "Women Only" -> binding.rgGenderType.check(R.id.rbWomenOnly)
         }
+        setupRadioGroupListeners()
+        setupSaveButtonListener(view)
+    }
 
-        saveButton.setOnClickListener {
-            val matchType = when (rgMatchType.checkedRadioButtonId) {
+    private fun formatDate(timestamp: Timestamp?): String {
+        val date = timestamp?.toDate()
+        val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        return formatter.format(date)
+    }
+
+    private fun setupRadioGroupListeners() {
+        binding.rgMatchType.setOnCheckedChangeListener { _, _ ->
+            checkRadioGroups()
+        }
+        binding.rgGenderType.setOnCheckedChangeListener { _, _ ->
+            checkRadioGroups()
+        }
+    }
+
+    private fun checkRadioGroups() {
+        binding.saveButton.isEnabled =
+            binding.rgMatchType.checkedRadioButtonId != -1 && binding.rgGenderType.checkedRadioButtonId != -1
+    }
+
+    private fun setupSaveButtonListener(view: View) {
+        binding.saveButton.setOnClickListener {
+            val matchType = when (binding.rgMatchType.checkedRadioButtonId) {
                 R.id.rbCompetitive -> "Competitive"
                 R.id.rbFriendly -> "Friendly"
                 else -> null
             }
 
-            val genderType = when (rgGenderType.checkedRadioButtonId) {
+            val genderType = when (binding.rgGenderType.checkedRadioButtonId) {
                 R.id.rbAllPlayers -> "All Players"
                 R.id.rbMixed -> "Mixed"
                 R.id.rbMenOnly -> "Men Only"
@@ -87,37 +105,7 @@ class ConfigureReservationFragment : Fragment() {
             }
 
             if (matchType != null && genderType != null) {
-                val reservationMap = hashMapOf(
-                    "matchType" to matchType,
-                    "genderType" to genderType,
-                    "isMatch" to true
-                )
-
-                val nonNullMap = reservationMap.filterValues { it != null }
-
-                db.collection("reservations")
-                    .document(reservation.documentId.toString()) // Replace with the ID of the document to update
-                    .update(nonNullMap)
-                    .addOnSuccessListener {
-                        Snackbar.make(
-                            view,
-                            "Reservation updated successfully",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                        // Navigate to a specific Fragment
-                        val fragment =
-                            ReservationListFragment() // Replace with your target Fragment class
-                        parentFragmentManager.beginTransaction().replace(R.id.container, fragment)
-                            .commit() // Replace 'R.id.container' with your actual container ID
-                    }
-                    .addOnFailureListener { e ->
-                        Snackbar.make(
-                            view,
-                            "Error updating reservation: ${e.message}",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-
+                updateReservation(view, matchType, genderType)
             } else {
                 Snackbar.make(
                     view,
@@ -125,7 +113,37 @@ class ConfigureReservationFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
 
+    private fun updateReservation(view: View, matchType: String, genderType: String) {
+        _padelClubService.updateReservation(
+            reservation.documentId.toString(),
+            matchType,
+            genderType,
+            {
+                Snackbar.make(
+                    view,
+                    "Reservation updated successfully",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                parentFragmentManager.popBackStack()
+            },
+            { e ->
+                Snackbar.make(
+                    view,
+                    "Error updating reservation: ${e.message}",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            })
+
+    }
+
+    companion object {
+        fun newInstance(reservation: UserReservation) = ConfigureReservationFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("reservation", reservation)
+            }
         }
     }
 }
