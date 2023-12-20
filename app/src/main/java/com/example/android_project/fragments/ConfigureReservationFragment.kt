@@ -43,6 +43,11 @@ class ConfigureReservationFragment : Fragment() {
         setupViews(view)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupViews(view: View) {
         val clubName: TextView = binding.clubName
         val reservedTimestamp: TextView = binding.reservedTimestamp
