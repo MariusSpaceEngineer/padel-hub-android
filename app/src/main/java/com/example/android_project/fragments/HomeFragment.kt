@@ -1,5 +1,6 @@
 package com.example.android_project.fragments
 
+import JoinGameFragment
 import ReservationListFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -52,7 +53,7 @@ class HomeFragment : Fragment() {
 
         val cardJoinMatch: CardView = view.findViewById(R.id.cardJoinMatch)
         cardJoinMatch.setOnClickListener {
-            val fragment = PadelClubListFragment() // Replace with your fragment class
+            val fragment = JoinGameFragment() // Replace with your fragment class
             parentFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
         }
 
