@@ -189,7 +189,6 @@ class PadelClubOverviewFragment : Fragment() {
 
     private fun fetchReservedTimestamps(clubId: String, year: Int, month: Int, dayOfMonth: Int) {
         _padelClubService.fetchReservedTimestamps(clubId, year, month, dayOfMonth, { timestamps ->
-            // Now you have the reservedTimestamps, you can setup the RecyclerView
             reservedTimestamps = timestamps
             setupRecyclerView()
             setupButton()
