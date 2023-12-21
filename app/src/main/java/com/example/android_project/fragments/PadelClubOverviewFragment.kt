@@ -156,7 +156,7 @@ class PadelClubOverviewFragment : Fragment() {
             { _, selectedYear, selectedMonth, selectedDayOfMonth ->
                 // This gets called when a date is selected
                 generateTimestamps(selectedYear, selectedMonth, selectedDayOfMonth)
-                fetchReservedTimestamps(selectedYear, selectedMonth, selectedDayOfMonth)
+                fetchReservedTimestamps(padelClub.id!!, selectedYear, selectedMonth, selectedDayOfMonth)
                 //Format date for the textView
                 val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
                 binding.tvSelectedDate.text = "Selected date: $selectedDate"
@@ -187,8 +187,8 @@ class PadelClubOverviewFragment : Fragment() {
         }
     }
 
-    private fun fetchReservedTimestamps(year: Int, month: Int, dayOfMonth: Int) {
-        _padelClubService.fetchReservedTimestamps(year, month, dayOfMonth, { timestamps ->
+    private fun fetchReservedTimestamps(clubId: String, year: Int, month: Int, dayOfMonth: Int) {
+        _padelClubService.fetchReservedTimestamps(clubId, year, month, dayOfMonth, { timestamps ->
             // Now you have the reservedTimestamps, you can setup the RecyclerView
             reservedTimestamps = timestamps
             setupRecyclerView()

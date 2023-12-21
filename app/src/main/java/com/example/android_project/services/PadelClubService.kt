@@ -33,7 +33,7 @@ class PadelClubService {
             }
     }
 
-    fun fetchReservedTimestamps(year: Int, month: Int, dayOfMonth: Int, onSuccess: (List<Timestamp>) -> Unit, onFailure: (Exception) -> Unit) {
+    fun fetchReservedTimestamps(clubId: String, year: Int, month: Int, dayOfMonth: Int, onSuccess: (List<Timestamp>) -> Unit, onFailure: (Exception) -> Unit) {
         // Create a range for the selected date
         val startCalendar = Calendar.getInstance()
         startCalendar.set(year, month, dayOfMonth, 0, 0, 0)  // Start of the day
@@ -45,6 +45,7 @@ class PadelClubService {
 
         // Fetch only the reservations for the selected date
         db.collection("reservations")
+            .whereEqualTo("clubId", clubId)
             .whereGreaterThanOrEqualTo("reservedTimestamp", startDate)
             .whereLessThanOrEqualTo("reservedTimestamp", endDate)
             .get()
