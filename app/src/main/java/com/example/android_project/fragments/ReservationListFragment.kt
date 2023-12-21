@@ -79,6 +79,11 @@ class ReservationListFragment : Fragment(), ReservationListAdapter.OnItemClickLi
                     adapter.addReservation(reservation)
                 }
 
+                // If there are no matches, show the tvNoMatches TextView
+                if (reservations.isEmpty()) {
+                    binding.tvNoReservations.visibility = View.VISIBLE
+                }
+
                 // Hide the ProgressBar
                 progressBar.visibility = View.GONE
             } catch (e: Exception) {
