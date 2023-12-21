@@ -80,8 +80,8 @@ class JoinGameFragment : Fragment() {
                         val isMatch = doc["isMatch"] as? Boolean
                         val matchGenderType = doc["genderType"] as? String
                         val validGenderTypes = when (userGender) {
-                            "Male" -> listOf("Men Only", "Mixed", "All")
-                            "Female" -> listOf("Women Only", "Mixed", "All")
+                            "Male" -> listOf("Men Only", "Mixed", "All Players")
+                            "Female" -> listOf("Women Only", "Mixed", "All Players")
                             else -> listOf()
                         }
                         (players?.size ?: 0) < 4 && isMatch == true && !players!!.contains(userId) && validGenderTypes.contains(matchGenderType)
