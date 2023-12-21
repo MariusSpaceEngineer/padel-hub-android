@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.android_project.utils.PadelClubAdapter
 class PadelClubListFragment : Fragment() {
     //Inject PadelClub service
     private val _padelClubService = PadelClubService()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +35,9 @@ class PadelClubListFragment : Fragment() {
         // Set the LayoutManager
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.visibility= View.VISIBLE
+
         // Fetch the data
         _padelClubService.fetchPadelClubs({ padelClubs ->
             recyclerView.adapter = PadelClubAdapter(padelClubs) { padelClub ->
@@ -42,6 +47,7 @@ class PadelClubListFragment : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
+            progressBar.visibility= View.GONE
         }, { exception ->
             Log.w("BookACourtFragment", "Error getting documents: ", exception)
         })
