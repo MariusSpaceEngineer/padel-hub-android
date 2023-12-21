@@ -16,4 +16,15 @@
         android:layout_gravity="center"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/tvNoReservations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="You have no reservations, go and make one!"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 </FrameLayout>
