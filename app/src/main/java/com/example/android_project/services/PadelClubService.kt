@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.Calendar
+import java.util.concurrent.CompletableFuture
 
 class PadelClubService {
     private val db = FirebaseFirestore.getInstance()
@@ -131,6 +132,32 @@ class PadelClubService {
             .addOnFailureListener { e ->
                 onFailure(e)
             }
+    }
+
+
+    suspend fun fetchGender(userId: String): CompletableFuture<String?> {
+        val future = CompletableFuture<String?>()
+
+        withContext(Dispatchers.IO) {
+            val docRef = db.collection("userInformation").document(userId)
+            docRef.get().addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d("FirestoreService", "DocumentSnapshot data: ${document.data}")
+
+                    // Check the value of the gender field
+                    val gender = document.getString("gender")
+                    future.complete(gender)
+                } else {
+                    Log.w("PadelClubOverviewFragment","No such document")
+                    future.complete(null)
+                }
+            }.addOnFailureListener { exception ->
+                Log.w("PadelClubOverviewFragment", exception)
+                future.completeExceptionally(exception)
+            }
+        }
+
+        return future
     }
 
     suspend fun fetchGenderAndDisableRadioButton(userId: String, rbWomenOnly: RadioButton, rbMenOnly: RadioButton) {
