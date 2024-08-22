@@ -9,3 +9,8 @@ An app designed to reserve timeslots for padel terrains.
 - Create a private match
 - Join existing matches
 - Set up preferences (type of users, preferred hand, etc.)
+
+## Technologies Used
+
+- Frontend: [Android]
+- Database: [Firebase]
